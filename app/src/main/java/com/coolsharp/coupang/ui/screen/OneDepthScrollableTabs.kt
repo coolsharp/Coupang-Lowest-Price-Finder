@@ -43,6 +43,10 @@ fun OneDepthScrollableTabs() {
         viewModel.getCategoryFetch()
     }
 
+    LaunchedEffect(Unit) {
+        viewModel.getProductFetch()
+    }
+
     LaunchedEffect(selectedTabIndex) {
         pagerState.scrollToPage(selectedTabIndex)
     }

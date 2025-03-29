@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.coolsharp.coupang.data.model.Categories
 import com.coolsharp.coupang.data.model.Products
 import com.coolsharp.coupang.data.repository.CategoryRepository
+import com.coolsharp.coupang.data.repository.DanawaProductsRepository
 import com.coolsharp.coupang.data.repository.ProductsRepository
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -22,20 +23,29 @@ class MainViewModel : ViewModel() {
     private val _products = mutableStateMapOf<String, Products>()
     val products: Map<String, Products> = _products
 
+    val danawaProductsRepository = DanawaProductsRepository()
+
     fun getCategoryFetch() {
         viewModelScope.launch {
             categoryRepository.fetchCategory().body()?.let { _category.value = it }
         }
     }
 
+    fun getProductFetch() {
+        viewModelScope.launch {
+            Log.d("coolsharp", "run launch")
+            danawaProductsRepository.fetchProducts().body()?.let {
+                Log.d("coolsharp", "res")
+                Log.d("coolsharp", it)
+            }
+        }
+    }
+
     suspend fun getProductsFetch(categoryOneDepth: String, categoryTwoDepth: String, category: String) {
         viewModelScope.async {
-            Log.d("coolsharp", "run")
             productsRepository.fetchProducts(categoryOneDepth, categoryTwoDepth).body()?.let {
                 _products[category] = it
-                Log.d("coolsharp", "size : ${it.products.size}")
             }
-            Log.d("coolsharp", "end")
         }.await()
     }
 }

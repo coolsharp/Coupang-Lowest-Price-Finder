@@ -76,6 +76,7 @@ dependencies {
     implementation(libs.paging.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.converter.scalars)
     annotationProcessor(libs.glide.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
