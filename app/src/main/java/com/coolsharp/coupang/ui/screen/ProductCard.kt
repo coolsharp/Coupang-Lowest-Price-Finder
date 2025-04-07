@@ -1,6 +1,8 @@
 package com.coolsharp.coupang.ui.screen
 
+import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -27,7 +29,7 @@ import com.bumptech.glide.integration.compose.GlideImage
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-fun ProductCard(title: String, thumb: String, price: String) {
+fun ProductCard(title: String, thumb: String, price: String, link: String) {
     Column(
         modifier = Modifier
             .background(Color.White)
@@ -44,6 +46,9 @@ fun ProductCard(title: String, thumb: String, price: String) {
                     clip = true // 그림자를 Box 모양에 맞게 자르기
                 )
                 .background(Color.White) // Box 배경색 (선택 사항)
+                .clickable {
+                    Log.d("coolsharp", "클릭 : $link")
+                }
         ) {
             val configuration = LocalConfiguration.current
             val screenWidth = configuration.screenWidthDp.dp

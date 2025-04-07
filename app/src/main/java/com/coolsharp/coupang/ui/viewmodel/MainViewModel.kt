@@ -49,12 +49,11 @@ class MainViewModel : ViewModel() {
                 for (i in element) {
                     val thumb = i.getElementsByClass("thumb_img")
                     val url = "https:" + thumb.attr("data-original").ifEmpty { thumb.attr("src") }
+                    val link = i.select("a").attr("href")
                     val title = thumb.attr("alt")
                     val num = i.getElementsByClass("num").text()
-                    danawaProducts.products.add(DanawaProduct(num, title, url))
-                    Log.d("coolsharp", url)
-                    Log.d("coolsharp", title)
-                    Log.d("coolsharp", num.toString())
+                    danawaProducts.products.add(DanawaProduct(num, title, url, link))
+                    Log.d("coolsharp", link)
 //                    Log.d("coolsharp", thumb.toString())
                 }
             }

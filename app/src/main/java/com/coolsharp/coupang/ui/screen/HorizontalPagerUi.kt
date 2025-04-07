@@ -73,7 +73,7 @@ fun HorizontalPagerUi(pagerState: PagerState, category: String) {
             danawaItems?.value?.let {
                 Log.d("coolsharp", "size : " + it.products.size)
                 items(it.products.size) { index ->
-                ProductCard(it.products[index].title, it.products[index].thumbNail, it.products[index].price.toString())
+                ProductCard(it.products[index].title, it.products[index].thumbNail, it.products[index].price, it.products[index].link)
             }
             }
         }
