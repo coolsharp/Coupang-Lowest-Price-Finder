@@ -20,16 +20,19 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
+import com.coolsharp.coupang.common.openUrlInBrowser
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun ProductCard(title: String, thumb: String, price: String, link: String) {
+    val context = LocalContext.current
     Column(
         modifier = Modifier
             .background(Color.White)
@@ -48,6 +51,7 @@ fun ProductCard(title: String, thumb: String, price: String, link: String) {
                 .background(Color.White) // Box 배경색 (선택 사항)
                 .clickable {
                     Log.d("coolsharp", "클릭 : $link")
+                    openUrlInBrowser(context, link)
                 }
         ) {
             val configuration = LocalConfiguration.current
