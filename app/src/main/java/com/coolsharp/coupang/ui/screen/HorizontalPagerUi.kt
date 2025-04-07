@@ -18,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.coolsharp.coupang.data.model.DanawaProducts
 import com.coolsharp.coupang.data.model.Products
 import com.coolsharp.coupang.ui.viewmodel.MainViewModel
 
@@ -38,6 +39,7 @@ fun HorizontalPagerUi(pagerState: PagerState, category: String) {
     ) { page ->
 
         val items = remember { mutableStateOf(Products()) }
+        val danawaItems = remember { mutableStateOf(DanawaProducts()) }
 
         LaunchedEffect(Unit) {
             var pathOneDepth = "category"
@@ -49,8 +51,15 @@ fun HorizontalPagerUi(pagerState: PagerState, category: String) {
             viewModel.getProductsFetch(pathOneDepth, pathTwoDepth, category)
 
             viewModel.products[category]?.let {
-                Log.d("coolsharp", "in")
                 items.value = it
+            }
+
+            viewModel.getProductsFetch()
+
+            viewModel.danawaProducts.let {
+                Log.d("coolsharp", "in")
+                danawaItems.value = it
+                Log.d("coolsharp", "size : " + it.products.size)
             }
         }
 
@@ -61,9 +70,10 @@ fun HorizontalPagerUi(pagerState: PagerState, category: String) {
             verticalArrangement = Arrangement.Top,
             horizontalArrangement = Arrangement.spacedBy(5.dp)
         ) {
-            items?.value?.let {
+            danawaItems?.value?.let {
+                Log.d("coolsharp", "size : " + it.products.size)
                 items(it.products.size) { index ->
-                ProductCard(it.products[index].title, it.products[index].thumbnail, it.products[index].price.toString())
+                ProductCard(it.products[index].title, it.products[index].thumbNail, it.products[index].price.toString())
             }
             }
         }
